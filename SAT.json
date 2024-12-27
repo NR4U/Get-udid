@@ -1,0 +1,23 @@
+{
+    "name": "SAT ipa",
+    "identifier": "SAT ipa",
+    "sourceURL": "z",
+    "apps": [
+        {
+            "name": "SAT X",
+            "bundleIdentifier": "com.atebits.Tweetie2",
+            "developerName": "SAT",
+            "version": "10.27.2",
+            "versionDate": "2024-12-19T04:03:00+03:00",
+            "versionDescription": "",
+            "downloadURL": "https://alshaep.com/admin/FilesIPA/IpaApp/2493988086723ebac95f09.ipa",
+            "localizedDescription": " Ø¨Ø¨Ø¬ÙŠ ÙˆÙˆÙ„ÙˆÙÙˆÙƒØ³ Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©",
+            "iconURL": "",
+            "tintColor": "018084",
+            "isLanZouCloud": 0,
+            "size": 3500000000,
+            "type": 1
+        },
+       
+    ]
+}
