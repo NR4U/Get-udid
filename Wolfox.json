@@ -1,0 +1,68 @@
+{
+    "name": "PUBG WOLFOX IOS",
+    "identifier": "PUBG WOLFOX IOS",
+    "sourceURL": "fox-app.store",
+    "apps": [
+        {
+            "name": "PUBG WOLFOX GL V4",
+            "bundleIdentifier": "com.wolfox.ig",
+            "developerName": "WOLFOX",
+            "version": "3.5.4",
+            "versionDate": "2024-12-19T04:03:00+03:00",
+            "versionDescription": "ببجي وولوفوكس العالمية",
+            "downloadURL": "https://wolfox.me/FoxGLV4.ipa",
+            "localizedDescription": " ببجي وولوفوكس العالمية",
+            "iconURL": "https://fox-app.store/admin/4.png",
+            "tintColor": "018084",
+            "isLanZouCloud": 0,
+            "size": 3500000000,
+            "type": 1
+        },
+        
+        {
+            "name": "PUBG WOLFOX KR V4",
+            "bundleIdentifier": "com.wolfox.krmobile",
+            "developerName": "WOLFOX",
+            "version": "3.5.4",
+            "versionDate": "2024-12-23T01:54:00+03:00",
+            "versionDescription": "ببجي وولوفوكس الكورية",
+            "downloadURL": "https://wolfox.me/FoxKRV4.ipa",
+            "localizedDescription": "ببجي وولوفوكس الكورية",
+            "iconURL": "https://p3nd.com/images/ipa_EmadMohammed_Change_4181.png",
+            "tintColor": "018084",
+            "isLanZouCloud": 0,
+            "size": 3500000000,
+            "type": 1
+        },
+        
+        {
+            "name": "PUBG WOLFOX TW",
+            "bundleIdentifier": "com.wolfox.pubgm",
+            "developerName": "WOLFOX",
+            "version": "3.5.0",
+            "versionDate": "2024-11-15T22:20:00+08:00",
+            "versionDescription": " ببجي وولوفوكس التايوانيه",
+            "downloadURL": "https://wolfox.me/FoxTwV4.ipa"            "localizedDescription": "ببجي وولوفوكس التايوانيه",
+            "iconURL": "https://fox-app.store/admin/1.png",
+            "tintColor": "018084",
+            "isLanZouCloud": 0,
+            "size": 3500000000,
+            "type": 1
+        },
+        {
+            "name": "PUBG WOLFOX VNG",
+            "bundleIdentifier": "vn.wolfox.pubgmobilek",
+            "developerName": "WOLFOX",
+            "version": "3.5.0",
+            "versionDate": "2024-11-19T02:36:00+08:00",
+            "versionDescription": "ببجي وولوفوكس الفتناميه",
+            "downloadURL": "https://wolfox.me/FoxVNgV4.ipa",
+            "localizedDescription": "ببجي وولوفوكس الفتنامية",
+            "iconURL": "https://fox-app.store/admin/3.png",
+            "tintColor": "018084",
+            "isLanZouCloud": 0,
+            "size": 3500000000,
+            "type": 1
+        }
+    ]
+}
