@@ -1,6 +1,6 @@
 /* styles.css */
 body {
-    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    background: linear-gradient(135deg, #ffcc00, #ff9933); /* تدرج خلفية */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,23 +10,27 @@ body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     color: #333;
+    position: relative; /* لتوفير مساحة لعناصر إضافية */
 }
 
 .loading {
     margin: 20px;
     font-size: 24px;
     animation: fadeIn 1s;
+    position: absolute; /* ستظهر في الوسط */
+    top: 20%;
 }
 
 .alert {
-    background-color: #000;
-    color: #FFD700;
+    background-color: #222; /* خلفية داكنة */
+    color: #FFD700; /* نص باللون الأصفر */
     padding: 20px;
     border: 5px solid #FFD700;
     border-radius: 10px;
     display: inline-block;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); /* ظل أكبر */
     animation: slideIn 0.5s;
+    transform: perspective(500px) rotateX(10deg); /* تأثير ثلاثي الأبعاد */
 }
 
 .alert h1 {
@@ -52,4 +56,37 @@ body {
 a {
     color: #FFD700;
     text-decoration: underline;
+}
+
+/* إضافة أعمدة الصيانة */
+.column {
+    position: absolute;
+    bottom: 10%;
+    width: 20px;
+    height: 100px;
+    background-color: #666; /* لون رمادي */
+    border-radius: 5px;
+}
+
+.column.left {
+    left: 20%;
+}
+
+.column.right {
+    right: 20%;
+}
+
+/* إضافة أشرطة الصيانة */
+.road {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background: repeating-linear-gradient(
+        90deg,
+        #000,
+        #000 10px,
+        #fff 10px,
+        #fff 20px
+    );
 }
