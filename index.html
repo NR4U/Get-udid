@@ -1,21 +1,34 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحويل الموقع</title>
+    <title>Wolf Shops - تحويل الموقع</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --primary-color: #000;
+            --secondary-color: #FFD700;
+            --bg-gradient: linear-gradient(135deg, #f4f4f4 0%, #e6e6e6 100%);
+            --text-color: #333;
+            --accent-color: #4A4A4A;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #f4f4f4 0%, #e0e0e0 100%);
+            background: var(--bg-gradient);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.3s ease;
         }
 
         .loader {
@@ -24,153 +37,109 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #fff;
+            background-color: var(--primary-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            transition: opacity 0.5s ease;
         }
 
         .loader-spin {
-            width: 60px;
-            height: 60px;
-            border: 6px solid #f3f3f3;
-            border-top: 6px solid #ffd700;
+            width: 70px;
+            height: 70px;
+            border: 8px solid rgba(255,255,255,0.2);
+            border-top: 8px solid var(--secondary-color);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1.2s linear infinite;
         }
 
         .loader-text {
             margin-top: 20px;
-            font-size: 18px;
-            color: #333;
+            font-size: 20px;
+            color: var(--secondary-color);
             animation: pulse 1.5s infinite;
         }
 
         .container {
-            display: none;
-            max-width: 800px;
-            padding: 30px;
-            transform: scale(0.9);
+            max-width: 900px;
+            width: 95%;
             opacity: 0;
-            transition: all 0.5s ease-out;
-        }
-
-        .container.show {
-            transform: scale(1);
-            opacity: 1;
+            transform: scale(0.9);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .warning-sign {
-            background: linear-gradient(45deg, #000 12%, #ffd700 12%, #ffd700 88%, #000 88%);
-            border: 10px solid #000;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+            border: 2px solid var(--primary-color);
             padding: 40px;
             text-align: center;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.1),
+                0 5px 15px rgba(0,0,0,0.05);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .warning-sign:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.15),
+                0 10px 25px rgba(0,0,0,0.1);
         }
 
         .warning-title {
             font-size: 54px;
             margin-bottom: 30px;
-            color: #000;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             animation: bounce 2s infinite;
         }
 
         .warning-text {
             font-size: 26px;
             margin-bottom: 30px;
-            color: #000;
-            line-height: 1.6;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            color: var(--text-color);
+            line-height: 1.8;
         }
 
         .new-link {
             display: inline-block;
             padding: 18px 40px;
-            background: #000;
-            color: #ffd700;
+            background: var(--primary-color);
+            color: var(--secondary-color);
             text-decoration: none;
             border-radius: 8px;
             font-size: 22px;
             font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
-        }
-
-        .new-link:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 215, 0, 0.2),
-                transparent
-            );
-            animation: shine 3s infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .new-link:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            background: #111;
-        }
-
-        .icon-container {
-            margin: 30px 0;
-            position: relative;
-            height: 60px;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         .arrow-animation {
-            position: relative;
-            width: 200px;
-            height: 40px;
-            margin: 0 auto;
-        }
-
-        .arrow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            margin: 30px 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .arrow::before {
-            content: '';
-            width: 40px;
-            height: 40px;
-            border: 5px solid #000;
-            border-right: 0;
-            border-bottom: 0;
-            transform: rotate(135deg);
+        .arrow {
+            width: 50px;
+            height: 50px;
+            border-top: 3px solid var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+            transform: rotate(45deg);
             animation: moveArrow 2s infinite;
-        }
-
-        @keyframes moveArrow {
-            0% {
-                opacity: 0;
-                transform: rotate(135deg) translate(-20px, -20px);
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: rotate(135deg) translate(20px, 20px);
-            }
         }
 
         @keyframes spin {
@@ -178,52 +147,36 @@
             100% { transform: rotate(360deg); }
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+        @keyframes moveArrow {
+            0%, 100% { transform: rotate(45deg) translate(-10px, -10px); }
+            50% { transform: rotate(45deg) translate(10px, 10px); }
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes shine {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
+            50% { transform: translateY(-15px); }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            .warning-title {
-                font-size: 42px;
-            }
-            .warning-text {
-                font-size: 20px;
-            }
-            .new-link {
-                padding: 15px 30px;
-                font-size: 18px;
+            .warning-title { font-size: 42px; }
+            .warning-text { font-size: 20px; }
+            .new-link { 
+                padding: 15px 30px; 
+                font-size: 18px; 
             }
         }
 
-        @media (max-width: 480px) {
-            .warning-title {
-                font-size: 36px;
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #121212;
+                color: #ffffff;
             }
-            .warning-text {
-                font-size: 18px;
+            .warning-sign {
+                background: linear-gradient(135deg, #1E1E1E 0%, #2A2A2A 100%);
+                border-color: var(--secondary-color);
             }
-            .new-link {
-                padding: 12px 25px;
-                font-size: 16px;
+            .warning-title, .warning-text {
+                color: #ffffff;
             }
         }
     </style>
@@ -231,19 +184,17 @@
 <body>
     <div class="loader">
         <div class="loader-spin"></div>
-        <div class="loader-text">⏳جاري التحميل...</div>
+        <div class="loader-text">جاري التحميل...</div>
     </div>
 
     <div class="container">
         <div class="warning-sign">
             <div class="warning-title">⚠️ تنبيه</div>
-            <div class="icon-container">
-                <div class="arrow-animation">
-                    <div class="arrow"></div>
-                </div>
+            <div class="arrow-animation">
+                <div class="arrow"></div>
             </div>
             <div class="warning-text">
-                نعتذر على ازعاجك، لقد تم نقل متجرنا إلى موقع جديد.<br>
+                نعتذر على إزعاجك، لقد تم نقل متجرنا إلى موقع جديد.<br>
                 نحن نعمل على تحسين تجربتك في التسوق!<br>
                 يرجى زيارة المتجر الجديد من خلال الرابط أدناه
             </div>
@@ -253,18 +204,15 @@
 
     <script>
         window.onload = function() {
-            setTimeout(function() {
+            setTimeout(() => {
                 document.querySelector('.loader').style.opacity = '0';
-                document.querySelector('.loader').style.transition = 'opacity 0.5s';
-                setTimeout(function() {
+                setTimeout(() => {
                     document.querySelector('.loader').style.display = 'none';
-                    document.querySelector('.container').style.display = 'block';
-                    setTimeout(function() {
-                        document.querySelector('.container').classList.add('show');
-                    }, 100);
+                    document.querySelector('.container').style.opacity = '1';
+                    document.querySelector('.container').style.transform = 'scale(1)';
                 }, 500);
             }, 2000);
-        }
+        };
     </script>
 </body>
 </html>
