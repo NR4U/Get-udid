@@ -1,0 +1,71 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #fff3cd, #ffe8a1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    direction: rtl;
+    overflow: hidden;
+}
+.hidden {
+    display: none;
+}
+#loading {
+    text-align: center;
+}
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #ffc107;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#container {
+    border: 5px dashed #ffc107;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.warning-sign {
+    font-size: 3em;
+    color: #856404;
+    margin-bottom: 10px;
+}
+h1 {
+    color: #856404;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+p {
+    color: #856404;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.button {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #856404;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: #e0a800;
+}
