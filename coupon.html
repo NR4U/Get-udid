@@ -1,0 +1,439 @@
+<html dir="rtl" lang="ar"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام إدارة الكوبونات - إنشاء وتنظيم كوبونات المتاجر">
+    <meta name="theme-color" content="#6366f1">
+    <title>نظام إدارة الكوبونات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #9E111C;
+            --secondary-color: #9E111C;
+            --accent-color: #9E111C;
+            --background-color: #f1f5f9;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--background-color);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-color);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);
+            background: var(--card-background);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 24px 24px 0 0 !important;
+            padding: 25px;
+            border: none;
+        }
+
+        .card-header h3 {
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.75rem;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background-color: white;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            color: white;
+        }
+
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .form-text {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .bi {
+            margin-left: 8px;
+            font-size: 1.2rem;
+            vertical-align: -3px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .card {
+                margin: 0;
+                border-radius: 20px;
+            }
+
+            .card-header {
+                border-radius: 20px 20px 0 0 !important;
+                padding: 20px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .container {
+                padding: 0;
+            }
+        }
+
+        /* تأثيرات إضافية */
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.8rem !important;
+        }
+
+        /* تأثير النبض للعنوان */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .card-header h3 i {
+            display: inline-block;
+            animation: pulse 2s infinite;
+            transform-origin: center;
+        }
+        
+        /* إضافة تنسيق للتنبيهات */
+        .alert {
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .alert.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- تنبيه النجاح -->
+        <div class="alert alert-success" role="alert" id="successAlert">
+            <i class="bi bi-check-circle-fill"></i> تم إنشاء الملف بنجاح!
+        </div>
+        
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="bi bi-stars"></i> نظام إدارة الكوبونات</h3>
+            </div>
+            <div class="card-body">
+                <form id="couponForm" onsubmit="generateFile(event)">
+                    <div class="mb-4">
+                        <label for="store_name" class="form-label">
+                            <i class="bi bi-shop"></i>اسم المتجر
+                        </label>
+                        <input type="text" class="form-control" id="store_name" placeholder="أدخل اسم متجرك" maxlength="50" pattern="[^<>]*" title="يرجى إدخال اسم متجر صحيح" required="" fdprocessedid="v9xwhs">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="store_link" class="form-label">
+                            <i class="bi bi-globe"></i>رابط المتجر
+                        </label>
+                        <input type="text" class="form-control" id="store_link" placeholder="أدخل رابط متجرك" required="" fdprocessedid="m1l2we">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="tutorial_link" class="form-label">
+                            <i class="bi bi-link-45deg"></i>رابط الشرح
+                        </label>
+                        <input type="text" class="form-control" id="tutorial_link" placeholder="أدخل رابط شرح التفعيل" required="" fdprocessedid="5kb35">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="coupons" class="form-label">
+                            <i class="bi bi-ticket-perforated"></i>الكوبونات
+                        </label>
+                        <textarea class="form-control" id="coupons" placeholder="أدخل كل كوبون في سطر (الحد  الاقصى 50 كوبون)" maxlength="1000" required=""></textarea>
+                        <div class="form-text">
+                            <span id="couponCount">0</span> كوبون | 
+                            <span id="charCount">0</span>/1000 حرف
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary w-100" id="submitBtn" fdprocessedid="etbmoj">
+                            <i class="bi bi-download"></i>تحميل وحفظ الملف
+                        </button>
+                    </div>
+                </form>
+            </div>
+<div class="card-footer text-center">
+                <p class="mb-0">جميع الحقوق محفوظة  WOLF PLUS   © 
+     <script>document.write(new Date().getFullYear());</script>2025</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // تتبع عدد الأحرف والكوبونات
+        const couponsTextarea = document.getElementById('coupons');
+        const couponCount = document.getElementById('couponCount');
+        const charCount = document.getElementById('charCount');
+        
+        couponsTextarea.addEventListener('input', function() {
+            const coupons = this.value.split('\n').filter(coupon => coupon.trim());
+            couponCount.textContent = coupons.length;
+            charCount.textContent = this.value.length;
+            
+            // التحقق من الحد الأقصى
+            if (this.value.length >= 1000) {
+                this.value = this.value.substring(0, 1000);
+            }
+
+            // التحقق من عدد الكوبونات
+            if (coupons.length > 50) {
+                showAlert('danger', 'الحد الأقصى للكوبونات هو 50 كوبون');
+                this.value = this.value.split('\n').slice(0, 50).join('\n');
+            }
+        });
+
+        // تنظيف المدخلات
+        function sanitizeInput(input) {
+            return input.replace(/<[^>]*>/g, '')
+                       .replace(/[\\'"]/g, '')
+                       .trim();
+        }
+
+        function generateFileContent() {
+            // تنظيف المدخلات
+            const storeName = sanitizeInput(document.getElementById('store_name').value);
+            const storeLink = document.getElementById('store_link').value;
+            const tutorialLink = document.getElementById('tutorial_link').value;
+            const coupons = document.getElementById('coupons').value
+                .split('\n')
+                .filter(coupon => coupon.trim())
+                .map(coupon => sanitizeInput(coupon));
+            
+            if (coupons.length === 0) {
+                throw new Error('يرجى إدخال كوبون واحد على الأقل');
+            }
+            
+            if (coupons.length > 50) {
+                throw new Error('الحد الأقصى للكوبونات هو 50 كوبون');
+            }
+            
+            let content = [];
+            
+            coupons.forEach((coupon, index) => {
+                content.push(`✨ شكرا لاشتراكك في متجر ${storeName}\n`);
+                content.push(`\n📱 افتح الرابط التالي لتفعيل الكوبون :\n`);
+                content.push(`${storeLink}\n`);
+                content.push(`📋 خطوات التفعيل :\n`);
+                content.push(`• ثبت ملف التعريف`);
+                content.push(`• ثم عب البيانات المطلوبة منك`);
+                content.push(`• ثم سيطلب منك الكوبون المرسل لك\n`);
+                content.push(`✅ وفعل الاشتراك\n`);
+                content.push(`\n📝 رابط الشرح :`);
+                content.push(`${tutorialLink}\n`);
+                content.push(`\n🎫 الكوبون :`);
+                content.push(`${coupon}\n`);
+            });
+            
+            const now = new Date();
+            const dateOptions = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            };
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            
+            const dateStr = now.toLocaleDateString('ar-SA', dateOptions);
+            const timeStr = now.toLocaleTimeString('ar-SA', timeOptions);
+            
+            content.push(`\n📊 ملخص العملية:\n`);
+            content.push(`━━━━━━━━━━━━━━━━━━━━━━━━━`);
+            content.push(`📅 التاريخ: ${dateStr}`);
+            content.push(`⏰ الوقت: ${timeStr}`);
+            content.push(`🎫 عدد الكوبونات: ${coupons.length}`);
+            content.push(`🏪 اسم المتجر: ${storeName}`);
+            content.push(`━━━━━━━━━━━━━━━━━━━━━━━━━`);
+            
+            return {
+                content: content.join('\n'),
+                fileName: `coupons_${storeName}_${now.getTime()}.txt`
+            };
+        }
+
+        async function generateFile(event) {
+            event.preventDefault();
+            
+            // تعطيل الزر أثناء المعالجة
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري المعالجة...';
+            
+            try {
+                const fileData = generateFileContent();
+                const blob = new Blob([fileData.content], { type: 'text/plain;charset=utf-8' });
+                
+                // محاولة المشاركة
+                if (navigator.share && navigator.canShare) {
+                    const file = new File([blob], fileData.fileName, { type: 'text/plain' });
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: 'ملف الكوبونات',
+                            text: `كوبونات متجر ${document.getElementById('store_name').value}`
+                        });
+                        showAlert('success', 'تم إنشاء ومشاركة الملف بنجاح!');
+                    } catch (error) {
+                        // إذا فشلت المشاركة، نقوم بالتحميل المباشر
+                        downloadFile(blob, fileData.fileName);
+                        showAlert('success', 'تم إنشاء وتحميل الملف بنجاح!');
+                    }
+                } else {
+                    // التحميل المباشر إذا كانت المشاركة غير مدعومة
+                    downloadFile(blob, fileData.fileName);
+                    showAlert('success', 'تم إنشاء وتحميل الملف بنجاح!');
+                }
+                
+                // تنظيف النموذج
+                document.getElementById('couponForm').reset();
+                couponCount.textContent = '0';
+                charCount.textContent = '0';
+                
+            } catch (error) {
+                showAlert('danger', error.message || 'حدث خطأ أثناء إنشاء الملف');
+            } finally {
+                // إعادة تفعيل الزر
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-download"></i>تحميل وحفظ الملف';
+            }
+        }
+
+        function downloadFile(blob, fileName) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function showAlert(type, message) {
+            const alertDiv = document.getElementById('successAlert');
+            alertDiv.className = `alert alert-${type} show`;
+            alertDiv.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill'}"></i> ${message}`;
+            
+            // إخفاء التنبيه بعد 3 ثواني
+            setTimeout(() => {
+                alertDiv.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>
