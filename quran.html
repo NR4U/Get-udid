@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرآن الكريم</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --card-background: #f8f9fa;
+        }
+
+        .dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-background: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--card-background);
+            color: var(--text-color);
+        }
+
+        .surah-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .surah-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .surah-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .verse-card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .verse-card.playing {
+            border: 2px solid var(--primary-color);
+        }
+
+        .verse-text {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .translation {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-button:hover {
+            opacity: 0.9;
+        }
+
+        .verse-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: var(--text-color);
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .action-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons button.bookmarked {
+            color: var(--primary-color);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--card-background);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .surah-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .surah-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .verse-number {
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .surah-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-wrap: wrap;
+            }
+
+            .action-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+@media (max-width: 768px) {
+    .container {
+        padding: 8px;
+    }
+
+    .header {
+        flex-direction: row; /* تغيير إلى row بدلاً من column */
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.3rem;
+    }
+
+    .surah-grid {
+        grid-template-columns: repeat(2, 1fr); /* بطاقتان في كل صف */
+        gap: 8px;
+    }
+
+    .filters {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* تصغير حجم الأزرار */
+    .action-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        width: auto;
+    }
+
+    .action-buttons {
+        gap: 12px;
+    }
+
+    .action-buttons button {
+        padding: 6px;
+        font-size: 1rem;
+    }
+
+    /* تصغير بطاقات السور */
+    .surah-card {
+        padding: 12px;
+    }
+
+    .surah-card h2 {
+        font-size: 0.9rem;
+    }
+
+    .surah-card p {
+        font-size: 0.8rem;
+    }
+
+    .surah-number {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    /* تعديل حجم عناصر الآيات */
+    .verse-card {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .verse-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .translation {
+        font-size: 0.9rem;
+    }
+
+    .verse-actions {
+        flex-direction: row; /* تغيير إلى row */
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .verse-number {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        width: auto;
+    }
+
+    .search-input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .play-all-button {
+        margin-top: 10px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* تحسينات إضافية لشاشات صغيرة جداً */
+@media (max-width: 360px) {
+    .surah-grid {
+        grid-template-columns: repeat(2, 1fr); /* الحفاظ على بطاقتين حتى في الشاشات الصغيرة جداً */
+    }
+
+    .surah-card h2 {
+        font-size: 0.8rem;
+    }
+
+    .surah-card p {
+        font-size: 0.7rem;
+    }
+
+    .action-buttons button {
+        padding: 5px;
+    }
+}
+
+@media (hover: none) {
+    .surah-card:hover {
+        transform: none;
+    }
+
+    .action-button:hover {
+        opacity: 1;
+    }
+
+    .action-buttons button:hover {
+        background-color: transparent;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>القرآن الكريم</h1>
+            <button class="theme-toggle action-button" onclick="toggleTheme()">
+                <i class="ri-moon-line"></i>
+            </button>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن سورة...">
+        </div>
+
+        <div class="filters">
+            <button class="action-button" onclick="toggleBookmarksView()">
+                <i class="ri-bookmark-line"></i>
+                المحفوظات
+            </button>
+            <button class="action-button" onclick="toggleLastRead()">
+                <i class="ri-book-line"></i>
+                آخر قراءة
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>المحفوظات</h3>
+                <p id="bookmarkCount">0</p>
+            </div>
+        </div>
+
+        <div id="surahGrid" class="surah-grid"></div>
+        <div id="verseSection" style="display: none;">
+            <button class="action-button" onclick="goBack()">
+                <i class="ri-arrow-right-line"></i>
+                العودة
+            </button>
+            <div id="surahInfo"></div>
+            <div id="versesList"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentAudio = null;
+        let isPlayingAll = false;
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+        let lastRead = JSON.parse(localStorage.getItem('lastRead') || 'null');
+
+        async function fetchSurahs() {
+            try {
+                const response = await fetch('https://api.alquran.cloud/v1/surah');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                displaySurahs(data.data);
+            } catch (error) {
+                console.error('Error fetching surahs:', error);
+                document.getElementById('surahGrid').innerHTML = `
+                    <div class="error-message">
+                        عذراً، حدث خطأ أثناء تحميل السور. يرجى تحديث الصفحة والمحاولة مرة أخرى.
+                    </div>
+                `;
+            }
+        }
+
+        function displaySurahs(surahs) {
+            const surahGrid = document.getElementById('surahGrid');
+            surahGrid.innerHTML = surahs.map(surah => `
+                <div class="surah-card" data-surah="${surah.number}" 
+                     onclick="showVerses(${surah.number}, '${surah.name}', '${surah.englishName}', ${surah.numberOfAyahs})">
+                    <div class="surah-info">
+                        <div class="surah-number">${surah.number}</div>
+                        <div>
+                            <h2 class="surah-name">سورة ${surah.name}</h2>
+                            <p>${surah.englishName} • ${surah.numberOfAyahs} آية</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function showVerses(surahNumber, surahName, englishName, ayahCount) {
+            const verseSection = document.getElementById('verseSection');
+            const surahGrid = document.getElementById('surahGrid');
+            const searchContainer = document.querySelector('.search-container');
+            const filters = document.querySelector('.filters');
+            const stats = document.querySelector('.stats');
+            
+            surahGrid.style.display = 'none';
+            searchContainer.style.display = 'none';
+            filters.style.display = 'none';
+            stats.style.display = 'none';
+            verseSection.style.display = 'block';
+
+            lastRead = { surahNumber, surahName, englishName, numberOfAyahs: ayahCount };
+            localStorage.setItem('lastRead', JSON.stringify(lastRead));
+
+            document.getElementById('surahInfo').innerHTML = `
+                <div class="verse-card">
+                    <div class="surah-info">
+                        <div class="surah-number">${surahNumber}</div>
+                        <div>
+                            <h2 class="surah-name">سورة ${surahName}</h2>
+                            <p>${englishName} • ${ayahCount} آية</p>
+                        </div>
+                    </div>
+                    <button class="action-button play-all-button" onclick="playFullSurah(${surahNumber})">
+                        <i class="ri-play-circle-line"></i>
+                        استماع للسورة كاملة
+                    </button>
+                </div>
+            `;
+
+            try {
+                const [versesResponse, translationResponse] = await Promise.all([
+                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`),
+                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.muyassar`)
+                ]);
+
+                if (!versesResponse.ok || !translationResponse.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const versesData = await versesResponse.json();
+                const translationData = await translationResponse.json();
+
+                document.getElementById('versesList').innerHTML = versesData.data.ayahs.map((verse, index) => {
+                    const isBookmarked = bookmarks.includes(verse.number);
+                    return `
+                        <div class="verse-card" id="verse-${verse.numberInSurah}">
+                            <p class="verse-text">${verse.text}</p>
+                            <p class="translation">${translationData.data.ayahs[index].text}</p>
+                            <div class="verse-actions">
+                                <div class="action-buttons">
+                                    <button onclick="playAudio('${verse.audio}', this)" class="audio-button">
+                                        <i class="ri-volume-up-line"></i>
+                                    </button>
+                                    <button onclick="shareVerse('${verse.text}')" class="share-button">
+                                        <i class="ri-share-line"></i>
+                                    </button>
+                                    <button onclick="toggleBookmark(${verse.number})" class="bookmark-button ${isBookmarked ? 'bookmarked' : ''}">
+                                        <i class="ri-bookmark-${isBookmarked ? 'fill' : 'line'}"></i>
+                                    </button>
+                                </div>
+                                <span class="verse-number">آية ${verse.numberInSurah}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error fetching verses:', error);
+                document.getElementById('versesList').innerHTML = `
+                    <div class="error-message">
+                        عذراً، حدث خطأ أثناء تحميل الآيات. يرجى المحاولة مرة أخرى.
+                    </div>
+                `;
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeButton = document.querySelector('.theme-toggle i');
+            themeButton.className = document.body.classList.contains('dark-mode') ? 
+                'ri-sun-line' : 'ri-moon-line';
+        }
+
+        function goBack() {
+            const verseSection = document.getElementById('verseSection');
+            const surahGrid = document.getElementById('surahGrid');
+            const searchContainer = document.querySelector('.search-container');
+            const filters = document.querySelector('.filters');
+            const stats = document.querySelector('.stats');
+            
+            verseSection.style.display = 'none';
+            surahGrid.style.display = 'grid';
+            searchContainer.style.display = 'block';
+            filters.style.display = 'flex';
+            stats.style.display = 'grid';
+
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            stopPlayingAll();
+        }
+
+        function playAudio(audioUrl, button) {
+            if (!audioUrl) return;
+
+            if (currentAudio) {
+                currentAudio.pause();
+                document.querySelectorAll('.audio-button i.ri-pause-line')
+                    .forEach(icon => icon.className = 'ri-volume-up-line');
+            }
+            
+            if (currentAudio && currentAudio.src === audioUrl) {
+                currentAudio = null;
+                button.querySelector('i').className = 'ri-volume-up-line';
+            } else {
+                currentAudio = new Audio(audioUrl);
+                currentAudio.play().catch(error => {
+                    console.error('Error playing audio:', error);
+                    button.querySelector('i').className = 'ri-volume-up-line';
+                });
+                
+                button.querySelector('i').className = 'ri-pause-line';
+                
+                currentAudio.onended = () => {
+                    button.querySelector('i').className = 'ri-volume-up-line';
+                    currentAudio = null;
+                };
+            }
+        }
+
+        async function playFullSurah(surahNumber) {
+            const button = document.querySelector('.play-all-button');
+            if (isPlayingAll) {
+                stopPlayingAll();
+                button.innerHTML = '<i class="ri-play-circle-line"></i> استماع للسورة كاملة';
+                button.classList.remove('playing');
+            } else {
+                button.innerHTML = '<i class="ri-pause-circle-line"></i> إيقاف';
+                button.classList.add('playing');
+                isPlayingAll = true;
+
+                try {
+                    const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`);
+                    const data = await response.json();
+                    playVerses(data.data.ayahs);
+                } catch (error) {
+                    console.error('Error fetching surah audio:', error);
+                    stopPlayingAll();
+                }
+            }
+        }
+
+        function stopPlayingAll() {
+            isPlayingAll = false;
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+        }
+
+        function playVerses(verses, index = 0) {
+            if (!isPlayingAll || index >= verses.length) {
+                stopPlayingAll();
+                const button = document.querySelector('.play-all-button');
+                button.innerHTML = '<i class="ri-play-circle-line"></i> استماع للسورة كاملة';
+                button.classList.remove('playing');
+                return;
+            }
+
+            const verse = verses[index];
+            currentAudio = new Audio(verse.audio);
+            
+            document.querySelectorAll('.verse-card').forEach(card => 
+                card.classList.remove('playing'));
+            document.getElementById(`verse-${verse.numberInSurah}`).classList.add('playing');
+            
+            currentAudio.play();
+            currentAudio.onended = () => {
+                playVerses(verses, index + 1);
+            };
+        }
+
+        function shareVerse(verseText) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'آية من القرآن الكريم',
+                    text: verseText,
+                    url: window.location.href
+                }).catch(console.error);
+            }
+        }
+
+        function toggleBookmark(verseNumber) {
+            const index = bookmarks.indexOf(verseNumber);
+            if (index === -1) {
+                bookmarks.push(verseNumber);
+            } else {
+                bookmarks.splice(index, 1);
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            updateStats();
+            
+            const button = event.target.closest('.bookmark-button');
+            if (button) {
+                button.classList.toggle('bookmarked');
+                const icon = button.querySelector('i');
+                icon.className = `ri-bookmark-${bookmarks.includes(verseNumber) ? 'fill' : 'line'}`;
+            }
+        }
+
+        function toggleBookmarksView() {
+            const surahCards = document.querySelectorAll('.surah-card');
+            const bookmarksButton = document.querySelector('.filters button:first-child');
+            const isShowingBookmarks = bookmarksButton.classList.contains('active');
+            
+            bookmarksButton.classList.toggle('active');
+            
+            if (!isShowingBookmarks) {
+                surahCards.forEach(card => {
+                    const surahNumber = parseInt(card.dataset.surah);
+                    const hasBookmark = bookmarks.some(b => 
+                        Math.floor(b / 1000) === surahNumber);
+                    card.style.display = hasBookmark ? 'block' : 'none';
+                });
+            } else {
+                surahCards.forEach(card => card.style.display = 'block');
+            }
+        }
+
+        function toggleLastRead() {
+            if (lastRead) {
+                showVerses(
+                    lastRead.surahNumber, 
+                    lastRead.surahName, 
+                    lastRead.englishName, 
+                    lastRead.numberOfAyahs
+                );
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('bookmarkCount').textContent = bookmarks.length;
+        }
+
+        // تهيئة التطبيق
+        fetchSurahs();
+        updateStats();
+
+        // إضافة مستمع البحث
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const surahCards = document.querySelectorAll('.surah-card');
+            
+            surahCards.forEach(card => {
+                const surahName = card.querySelector('.surah-name').textContent.toLowerCase();
+                const englishName = card.querySelector('p').textContent.toLowerCase();
+                
+                if (surahName.includes(query) || englishName.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
